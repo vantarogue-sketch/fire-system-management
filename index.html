@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Fire Station Incident Management System</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<aside class="sidebar" id="sidebar">
+  <div class="brand"><i class="fa-solid fa-fire-flame-curved"></i><span>Station 7<small>Incident Command</small></span></div>
+  <nav>
+    <button class="nav active" data-page="dashboard"><i class="fa-solid fa-gauge-high"></i>Dashboard</button>
+    <button class="nav" data-page="incidents"><i class="fa-solid fa-triangle-exclamation"></i>Incidents</button>
+    <button class="nav" data-page="dispatch"><i class="fa-solid fa-tower-broadcast"></i>Dispatch</button>
+    <button class="nav" data-page="vehicles"><i class="fa-solid fa-truck-droplet"></i>Vehicles</button>
+    <button class="nav" data-page="crew"><i class="fa-solid fa-users"></i>Crew</button>
+    <button class="nav" data-page="reports"><i class="fa-solid fa-chart-column"></i>Reports</button>
+  </nav>
+  <button class="nav reset" data-act="reset"><i class="fa-solid fa-rotate-left"></i>Reset demo data</button>
+</aside>
+
+<div class="main">
+  <header class="topbar">
+    <button class="icon-btn menu" data-act="menu" aria-label="Menu"><i class="fa-solid fa-bars"></i></button>
+    <h1 id="pageTitle">Dashboard</h1>
+    <div class="top-right">
+      <span class="clock" id="clock"></span>
+      <button class="icon-btn" data-act="bell" aria-label="Notifications"><i class="fa-solid fa-bell"></i><b id="bellCount">0</b></button>
+      <button class="btn red" data-act="new-incident"><i class="fa-solid fa-plus"></i><span>Report incident</span></button>
+    </div>
+    <div class="notes" id="notes" hidden></div>
+  </header>
+
+  <main id="content">
+    <section class="page" id="dashboard">
+      <div class="stats" id="stats"></div>
+      <div class="grid2">
+        <div class="panel"><h2>Severity distribution</h2><div id="sevChart"></div></div>
+        <div class="panel"><h2>Activity timeline</h2><ul class="timeline" id="timeline"></ul></div>
+      </div>
+      <div class="panel"><h2>Recent incidents</h2><div class="tbl" id="recent"></div></div>
+    </section>
+
+    <section class="page" id="incidents" hidden>
+      <div class="toolbar">
+        <input type="search" id="incSearch" placeholder="Search by ID, type or location">
+        <select id="incSev"><option value="">All severities</option><option>Low</option><option>Medium</option><option>High</option><option>Critical</option></select>
+        <select id="incStatus"><option value="">All statuses</option><option>Reported</option><option>Dispatched</option><option>On Scene</option><option>Resolved</option></select>
+      </div>
+      <div class="panel tbl" id="incTable"></div>
+    </section>
+
+    <section class="page" id="dispatch" hidden>
+      <div class="panel"><h2>Pending incidents</h2><div id="pending"></div></div>
+      <div class="panel"><h2>Active dispatches</h2><div class="tbl" id="active"></div></div>
+    </section>
+
+    <section class="page" id="vehicles" hidden>
+      <div class="toolbar">
+        <input type="search" id="vehSearch" placeholder="Search vehicles">
+        <select id="vehStatus"><option value="">All statuses</option><option>Available</option><option>Dispatched</option><option>Maintenance</option></select>
+        <button class="btn red" data-act="add-vehicle"><i class="fa-solid fa-plus"></i>Add vehicle</button>
+      </div>
+      <div class="panel tbl" id="vehTable"></div>
+    </section>
+
+    <section class="page" id="crew" hidden>
+      <div class="toolbar">
+        <input type="search" id="crewSearch" placeholder="Search crew">
+        <select id="crewStatus"><option value="">All statuses</option><option>Available</option><option>On Duty</option><option>Off Duty</option></select>
+        <button class="btn red" data-act="add-crew"><i class="fa-solid fa-plus"></i>Add crew member</button>
+      </div>
+      <div class="panel tbl" id="crewTable"></div>
+    </section>
+
+    <section class="page" id="reports" hidden>
+      <div class="stats" id="repStats"></div>
+      <div class="grid2">
+        <div class="panel"><h2>Incidents by severity</h2><div id="repSev"></div></div>
+        <div class="panel"><h2>Export</h2><p class="muted">Download every incident record as a CSV file for Excel or Sheets.</p><button class="btn red" data-act="csv"><i class="fa-solid fa-file-csv"></i>Export CSV</button></div>
+      </div>
+      <div class="panel"><h2>Incident history</h2><div class="tbl" id="history"></div></div>
+    </section>
+  </main>
+</div>
+
+<div class="overlay" id="overlay" hidden>
+  <div class="modal" role="dialog" aria-modal="true">
+    <div class="modal-head"><h2 id="mTitle"></h2><button class="icon-btn" data-act="close" aria-label="Close"><i class="fa-solid fa-xmark"></i></button></div>
+    <div id="mBody"></div>
+  </div>
+</div>
+<div class="toasts" id="toasts"></div>
+<script src="script.js"></script>
+</body>
+</html>
